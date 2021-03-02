@@ -5,21 +5,8 @@ pipeline {
         jdk 'jdk8' 
     }
 	
-	options {
-       checkoutToSubdirectory 'repository'
-    }
-	
     stages {
         stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                ''' 
-            }
-        }
-		
-		stage ('Initialize') {
             steps {
                 sh '''
                     echo "PATH = ${PATH}"
@@ -39,44 +26,5 @@ pipeline {
 		   
                 mvn("compile")
             }
-        }
-		stage ('Create and Store Package') {
-           steps {
-
-                mvn("package")
-            }
-			steps {
-				code to push package to artifactory
-			}
-        }
-        stage("Deploy to QA") {
-            steps {
-			pull the war from artifactory
-            }
-			steps {
-			deploy it to tomcat/docker/kub...
-			}
-        }
-		stage("Perform UI Test") {a
-            steps {
-			//functionaltest/pom.xml, mvn test, html publish report 
-                mvn("clean package")
-            }
-        }
-		stage("Deploy to Prod") {
-            steps {
-				pull the war from artifactory
-            }
-			steps {
-				deploy it to tomcat/docker/kub...
-			}
-        }
-		
-		stage("Perform Sanity test") {
-            steps {
-				//Acceptancetest/pom.xml mvn test, publish html report
-                mvn("clean package")
-            }
-        }
     }
 }
