@@ -6,7 +6,8 @@ pipeline {
     }
 	
     stages {
-        stage ('Initialize') {
+        
+		stage ('Initialize') {
             steps {
                 sh '''
                     echo "PATH = ${PATH}"
@@ -14,10 +15,23 @@ pipeline {
                 ''' 
             }
         }
-	
+		
 		stage ('static code analysis') {
            steps {
-                sh 'mvn -B validate' 
+                sh 'mvn validate' 
             }
+		}
+		
+		stage ('Build') {
+           steps {
+                sh 'mvn compile' 
+            }
+		}
+		
+		stage ('Package') {
+           steps {
+                sh 'mvn package' 
+            }
+		}
 	}
 }
