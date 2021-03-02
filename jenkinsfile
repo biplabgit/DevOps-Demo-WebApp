@@ -17,15 +17,7 @@ pipeline {
 	
 		stage ('static code analysis') {
            steps {
-
-                mvn("validate")
+                sh 'mvn -B validate' 
             }
-        }
-		stage ('Build') {
-           steps {
-		   
-                mvn("compile")
-            }
-		}
 	}
 }
