@@ -7,3 +7,4 @@ My test commit.
 My test for webhook.
 My Jira integration test.
 My Jira integration test2.
+My Slack integration test.
